@@ -22,4 +22,15 @@ async function getLaunchesInfo() {
   return data;
 }
 
-export { getCompanyInfo, getLaunchesInfo };
+async function getLaunchInfo(id: string) {
+  const response = await fetch(`${URL}${VERSION}/launches/${id}`);
+
+  if (response.status !== 200) {
+    throw new Error(`Fetch failed ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+export { getCompanyInfo, getLaunchesInfo, getLaunchInfo };

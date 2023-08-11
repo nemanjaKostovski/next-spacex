@@ -9,6 +9,7 @@ type Launch = {
   links: { patch: { small: string } };
   name: string;
   date_local: string | number | Date;
+  id: string;
 };
 
 export default function Launches() {
@@ -38,10 +39,11 @@ export default function Launches() {
       <div className='flex flex-row flex-wrap p-8 justify-center'>
         {filteredLaunches
           .map((launch) => ({
-            key: launch.name,
+            key: launch.id,
             patch: launch.links.patch.small,
             name: launch.name,
             date: new Date(launch.date_local).getFullYear(),
+            id: launch.id,
           }))
           .filter((launch) => launch.patch && launch.name) // Remove launches without a small patch
           .map((launch) => (
@@ -50,6 +52,7 @@ export default function Launches() {
               patch={launch.patch}
               name={launch.name}
               date={launch.date}
+              id={launch.id}
             />
           ))}
       </div>
