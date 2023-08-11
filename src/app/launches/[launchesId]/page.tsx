@@ -47,7 +47,7 @@ export default function LaunchDetails({ params }: LaunchDetails) {
         key={launchDetails.launchesId}
         details={launchDetails.details}
         name={launchDetails.name}
-        date={`${launchDetails.date_local.slice(0, 10)}`}
+        date={launchDetails.date_local.slice(0, 10)}
         patch={launchDetails.links.patch.large}
         flickr={launchDetails.flickr}
       />
