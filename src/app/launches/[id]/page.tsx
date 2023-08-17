@@ -17,8 +17,8 @@ type LaunchDetails = {
   details: string;
 };
 
-export default function LaunchDetails({ params }: LaunchDetails) {
-  const id = params.launchesId;
+export default function LaunchDetails({ params }: { params: { id: string } }) {
+  const id = params.id;
 
   const [launchDetails, setLaunchDetails] = useState<LaunchDetails | null>(
     null
