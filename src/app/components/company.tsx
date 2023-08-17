@@ -22,7 +22,7 @@ export async function Company() {
           alt='SpaceX'
           width={400}
           height={250}
-          className='visible sm:invisible mt-48 ml-4'
+          className='visible sm:invisible mt-48'
         />
         <p className='text-xl bottom-0 absolute sm:bg-slate-500'>
           {companyInfo.summary}
