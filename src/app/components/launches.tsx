@@ -4,6 +4,7 @@ import { getLaunchesInfo } from '@/lib/fetch';
 import LaunchCard from '@/app/components/launchCard';
 import { useEffect, useState } from 'react';
 import Search from './search';
+import useDebounce from './useDebounce';
 
 type Launch = {
   links: { patch: { small: string } };
@@ -15,6 +16,10 @@ type Launch = {
 export default function Launches() {
   const [launches, setLaunches] = useState<Launch[]>([]);
   const [filteredLaunches, setFilteredLaunches] = useState<Launch[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Possible adjustments for delay, initial delay 400ms
+  const debouncedSearchQuery = useDebounce(searchQuery, 400);
 
   useEffect(() => {
     async function fetchLaunches() {
@@ -26,11 +31,16 @@ export default function Launches() {
     fetchLaunches();
   }, []);
 
-  function handleChange(query: string) {
+  useEffect(() => {
+    // Filter launches using the debounced search query
     const filteredLaunches = launches.filter((launch) =>
-      launch.name.toLowerCase().includes(query.toLowerCase())
+      launch.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
     );
     setFilteredLaunches(filteredLaunches);
+  }, [debouncedSearchQuery, launches]);
+
+  function handleChange(query: string) {
+    setSearchQuery(query);
   }
 
   return (
